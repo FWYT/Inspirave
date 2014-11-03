@@ -7,11 +7,36 @@
   <body>
     <form action="http://fwyt.github.io/Inspirave/">
       <p> Name: 
-          <input type="text" name = "name" size ="15" max length = "30" />
+          <input type="text" name = "name" size ="15" max length = "30" /><?php echo "$name"; ?>
       </p>
       <p> Donation Amount: 
-          <input type="text" name = "amount" size ="15" max length = "30" />
+          <input type="text" name = "amount" size ="15" max length = "30" /><?php echo "$amount"; ?>
       </p>
     </form>
+    
+    <form action="" method="post">
+      <input type="submit" value="Thank you for your donation!" />
+      <input type="hidden" name="button_pressed" value="1" />
+    </form>
+
+<?php
+
+if(isset($_POST['button_pressed']))
+{
+    $name		= $_POST['name'];
+    $amount		= $_POST['amount'];
+    $to      = 'sweetfrances@hotmail.com';
+    $subject = 'Inspirave';
+    $message = 'Hello, "$name" has donated "$amount" for your aspiration!';
+    $headers = 'From: sweetfrances@hotmail.com' . "\r\n" .
+        'Reply-To: sweetfrances@hotmail.com' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+
+    mail($to, $subject, $message, $headers);
+
+    echo 'Email Sent.';
+}
+
+?>
   </body>
 </html>
